@@ -15,7 +15,7 @@ resource "azurerm_resource_group" "test" {
 # Using a pre-defined rule for http.  Create a network security group that restricts access to port 80 inbound.  No restrictions on source address/port.
 ########################################################
 module "testPredefinedHTTP" {
-  source              = "../../modules/HTTP/"
+  source              = "../../../modules/HTTP/"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedHTTP"
 
@@ -23,7 +23,7 @@ module "testPredefinedHTTP" {
 }
 
 module "testPredefinedAD" {
-  source              = "../../modules/ActiveDirectory/"
+  source              = "../../../modules/ActiveDirectory/"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedAD"
 
@@ -43,7 +43,7 @@ resource "azurerm_application_security_group" "second" {
 }
 
 module "testPredefinedRuleWithCustom" {
-  source              = "../../"
+  source              = "../../../"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedWithCustom"
   predefined_rules = [
@@ -61,7 +61,7 @@ module "testPredefinedRuleWithCustom" {
 }
 
 module "testPredefinedRuleWithPrefix" {
-  source                = "../../"
+  source                = "../../../"
   resource_group_name   = azurerm_resource_group.test.name
   security_group_name   = "nsg_${random_id.randomize.hex}testPredefinedWithPrefix"
   source_address_prefix = ["VirtualNetwork"]
@@ -79,7 +79,7 @@ module "testPredefinedRuleWithPrefix" {
 }
 
 module "testPredefinedRuleWithPrefixes" {
-  source                  = "../../"
+  source                  = "../../../"
   resource_group_name     = azurerm_resource_group.test.name
   security_group_name     = "nsg_${random_id.randomize.hex}testPredefinedWithPrefixes"
   source_address_prefixes = ["10.151.0.0/24", "10.151.1.0/24"]
@@ -99,7 +99,7 @@ module "testPredefinedRuleWithPrefixes" {
 
 
 module "testCustom" {
-  source              = "../../"
+  source              = "../../../"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testCustom"
   custom_rules = [
@@ -108,7 +108,7 @@ module "testCustom" {
       priority                              = 201
       direction                             = "Inbound"
       access                                = "Allow"
-      protocol                              = "tcp"
+      protocol                              = "Tcp"
       source_port_range                     = "*"
       destination_port_range                = "22"
       description                           = "description-myssh"
@@ -119,7 +119,7 @@ module "testCustom" {
       priority                                   = 200
       direction                                  = "Inbound"
       access                                     = "Allow"
-      protocol                                   = "tcp"
+      protocol                                   = "Tcp"
       source_port_range                          = "*"
       destination_port_range                     = "8080"
       description                                = "description-http"
@@ -131,7 +131,7 @@ module "testCustom" {
 }
 
 module "testCustomPrefix" {
-  source              = "../../"
+  source              = "../../../"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_${random_id.randomize.hex}testCustomPrefix"
   custom_rules = [
@@ -140,7 +140,7 @@ module "testCustomPrefix" {
       priority               = 201
       direction              = "Inbound"
       access                 = "Allow"
-      protocol               = "tcp"
+      protocol               = "Tcp"
       source_port_range      = "*"
       destination_port_range = "22"
       source_address_prefix  = "10.151.0.0/24"
@@ -151,7 +151,7 @@ module "testCustomPrefix" {
       priority                                   = 200
       direction                                  = "Inbound"
       access                                     = "Allow"
-      protocol                                   = "tcp"
+      protocol                                   = "Tcp"
       source_port_range                          = "*"
       destination_port_range                     = "8080"
       source_address_prefixes                    = ["10.151.0.0/24", "10.151.1.0/24"]
@@ -162,4 +162,3 @@ module "testCustomPrefix" {
 
   depends_on = [azurerm_resource_group.test]
 }
-

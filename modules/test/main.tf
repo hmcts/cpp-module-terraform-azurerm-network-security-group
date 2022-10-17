@@ -1,9 +1,9 @@
 module "test-nsg" {
-  source = "../http"
+  source = "../HTTP"
 
   security_group_name = "web-http"
   resource_group_name = "nsg-http"
-  location            = "westus"
+  #location            = "westus"
 
   destination_address_prefix = ["10.0.3.0/32"]
 }

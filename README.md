@@ -17,7 +17,7 @@ This module includes a a set of pre-defined rules for commonly used protocols (f
 
 The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules.
 
-~> **NOTE:** `source_address_prefix` is defined differently in `predefined_rules` and `custom_rules`. 
+~> **NOTE:** `source_address_prefix` is defined differently in `predefined_rules` and `custom_rules`.
 `predefined_rules` uses `var.source_address_prefix` defined in the module.`var.source_address_prefix` is of type list(string), but allowed only one element (CIDR, `*`, source IP range or Tags). For more source_address_prefixes, please use `var.source_address_prefixes`. The same for `var.destination_address_prefix` in `predefined_rules`.
 `custom_rules` uses `source_address_prefix` defined in the block `custom_rules`. `source_address_prefix` is of type string (CIDR, `*`, source IP range or Tags). For more source_address_prefixes, please use `source_address_prefixes` in block `custom_rules`. The same for `destination_address_prefix` in `custom_rules`.
 
