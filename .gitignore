@@ -10,7 +10,7 @@ terraform.tfvars
 # Terraform directory
 .terraform/
 terraform.tfstate.d/
-logs/ 
+logs/
 
 # Go vendor directory
 vendor/
@@ -20,6 +20,7 @@ vendor/
 
 # Terraform log file
 terraform.log
+.terraform.loc*
 
 ### https://raw.github.com/github/gitignore/abad92dac5a4306f72242dae3bca6e277bce3615/Global/Vim.gitignore
 

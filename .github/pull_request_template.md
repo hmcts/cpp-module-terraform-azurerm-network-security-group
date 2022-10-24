@@ -7,9 +7,6 @@ $ docker run --rm azure-network-security-group /bin/bash -c "bundle install && r
 Please add this into the example usage of README.md and format the changes by "terrafmt fmt README.md". Please intall "terrafmt" by [install terrafmt](https://github.com/katbyte/terrafmt#install).
 --->
 
-Fixes #000 
+Fixes #000
 
 Changes proposed in the pull request:
-
-
-

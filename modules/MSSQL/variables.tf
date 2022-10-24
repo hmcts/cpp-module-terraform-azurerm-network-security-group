@@ -33,7 +33,7 @@ variable "custom_rules" {
   #}]
 }
 
-# Security rules configuration 
+# Security rules configuration
 variable "source_address_prefix" {
   type    = list(any)
   default = ["*"]
