@@ -13,6 +13,10 @@ NOTE: We are working on adding the support for applying a NSG to a network inter
 
 This module includes a a set of pre-defined rules for commonly used protocols (for example HTTP or ActiveDirectory) that can be used directly in their corresponding modules or as independent rules.
 
+## Requirements
+
+- Terraform >= 0.12.6 (required for `for_each` implementation)
+
 ## Usage with the generic module in Terraform 0.13
 
 The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules.
@@ -222,6 +226,29 @@ module "network-security-group" {
   }
 }
 ```
+
+## Migration to For_Each Implementation
+
+This module now uses `for_each` instead of `count` for NSG rules, providing better state management and preventing rule recreation when order changes.
+
+### For Existing Deployments
+
+⚠️ **Important**: Existing deployments require state migration to avoid recreating rules.
+
+1. **Backup state**: `terraform state pull > backup.tfstate`
+
+2. **Move resources** from count-based to name-based addressing:
+   ```bash
+   # Example migrations
+   terraform state mv 'azurerm_network_security_rule.predefined_rules[0]' 'azurerm_network_security_rule.predefined_rules["SSH"]'
+   terraform state mv 'azurerm_network_security_rule.custom_rules[0]' 'azurerm_network_security_rule.custom_rules["myssh"]'
+   ```
+
+3. **Verify**: `terraform plan` should show no changes
+
+### Requirements
+- Each rule must have a unique `name` field
+- Rule names must be unique across predefined and custom rules
 
 ## Test
 
