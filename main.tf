@@ -17,7 +17,7 @@ resource "azurerm_network_security_group" "nsg" {
 #############################
 
 resource "azurerm_network_security_rule" "predefined_rules" {
-  for_each                                   = { for idx, rule in var.predefined_rules : lookup(rule, "name", "rule_${idx}") => merge(rule, { _index = idx }) }
+  for_each                                   = { for idx, rule in var.predefined_rules : lookup(rule, "name", "${idx}") => merge(rule, { _index = idx }) }
   name                                       = lookup(each.value, "name")
   priority                                   = lookup(each.value, "priority", 4096 - length(var.predefined_rules) + each.value._index)
   direction                                  = element(var.rules[lookup(each.value, "name")], 0)
@@ -42,7 +42,7 @@ resource "azurerm_network_security_rule" "predefined_rules" {
 #############################
 
 resource "azurerm_network_security_rule" "custom_rules" {
-  for_each                                   = { for idx, rule in var.custom_rules : lookup(rule, "name", "custom_rule_${idx}") => rule }
+  for_each                                   = { for idx, rule in var.custom_rules : lookup(rule, "name", "${idx}") => rule }
   name                                       = lookup(each.value, "name", "default_rule_name")
   priority                                   = lookup(each.value, "priority")
   direction                                  = lookup(each.value, "direction", "Any")
